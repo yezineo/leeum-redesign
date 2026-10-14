@@ -1,0 +1,16 @@
+<div class="floating">
+    <button type="button" class="floating__btn floating__access" aria-label="접근성 메뉴">
+        <img src="{{ url_for('static', filename='images/icons/icon-access.svg') }}" alt="">
+    </button>
+
+    <div class="floating__right">
+        <button type="button" class="floating__btn floating__top" aria-label="맨 위로">
+            <img src="{{ url_for('static', filename='images/icons/icon-top.svg') }}" alt="">
+        </button>
+        <button type="button" class="floating__btn floating__chat"
+                aria-label="챗봇 열기" aria-expanded="false" aria-controls="chatbot">
+            <img class="floating__chat-open" src="{{ url_for('static', filename='images/icons/icon-chatbot.svg') }}" alt="">
+            <img class="floating__chat-close" src="{{ url_for('static', filename='images/icons/icon-chat-close.svg') }}" alt="" hidden>
+        </button>
+    </div>
+</div>

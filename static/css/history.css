@@ -1,0 +1,154 @@
+/* 13 예약 내역 */
+.history {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  padding: 60px 192px 100px;
+}
+
+.history__photo { padding-top: 70px; flex-shrink: 0; }
+.history__photo img { display: block; width: 340px; height: 510px; object-fit: cover; }
+
+.history__main { flex: 1; min-width: 0; }
+.history__title { height: 70px; font: var(--font-h3); }
+
+.history__card {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 40px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-base);
+  background: var(--color-bg);
+}
+
+/* 탭 */
+.history__tabs { display: flex; border-bottom: 1px solid var(--color-line-weak); }
+.history__tab {
+  width: 110px;
+  padding: 0 10px 15px;
+  font: var(--font-body);
+  color: var(--color-text-sub);
+  border-bottom: 2px solid transparent;
+}
+.history__tab.is-active { color: var(--color-text); border-bottom-color: var(--color-accent); }
+
+/* 목록 */
+.history__item {
+  display: flex;
+  gap: 30px;
+  padding: 30px 0;
+}
+.history__item + .history__item { border-top: 1px dashed var(--color-line); }
+
+.history__thumb { width: 240px; height: 134px; object-fit: cover; flex-shrink: 0; }
+
+.history__info { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.history__name { font: var(--font-h5); }
+.history__meta { font: var(--font-small); }
+
+.history__bottom {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 30px;
+}
+.history__sub { display: flex; gap: 10px; font: var(--font-small); color: var(--color-text-sub); }
+.history__bar { color: var(--color-line); }
+
+.history__btn {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 15px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font: var(--font-small);
+  color: var(--color-text-sub);
+}
+
+/* 13-1 빈 화면 */
+.history__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 100px 0;
+}
+.history__empty p { font: var(--font-h5); color: var(--color-text-sub); }
+.history__go {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 360px;
+  height: 36px;
+  border-radius: var(--radius-base);
+  background: var(--color-accent);
+  font: var(--font-small);
+  color: var(--color-text);
+}
+
+/* ===== 모바일 (13 · 13-1 예약 내역) ===== */
+@media (max-width: 767px) {
+  .history {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 48px 30px 100px;
+  }
+  .history__photo { display: none; }        /* 모바일은 사진 없음 */
+  .history__title {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    font: var(--font-h5);
+  }
+  .history__card { gap: 0; padding: 30px; }
+
+  /* 탭: 반반 */
+  .history__tab {
+    flex: 1;
+    width: auto;
+    font: var(--font-m-body);
+  }
+
+  /* 항목: 썸네일 위 · 정보 아래 */
+  .history__item {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .history__item:last-child { padding-bottom: 0; }
+  .history__thumb {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 240 / 134;
+  }
+  .history__info { gap: 0; }
+  .history__name { margin-bottom: 6px; font: var(--font-m-body); }
+  .history__meta { font: var(--font-m-small); }
+  .history__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding-top: 0;
+  }
+  .history__sub { gap: 6px; font: var(--font-m-small); }
+  .history__btn { align-self: flex-end; font: var(--font-m-small); }
+
+  /* 13-1 빈 화면 */
+  .history__empty { padding: 80px 0; }
+  .history__empty p { font: var(--font-m-body); }
+  .history__go { width: 100%; font: var(--font-m-small); }
+}
+
+/* ===== 태블릿 · 작은 PC (13) ===== */
+@media (min-width: 768px) {
+  .history {
+    padding-left: clamp(30px, 10vw, 192px);
+    padding-right: clamp(30px, 10vw, 192px);
+  }
+}
+@media (min-width: 768px) and (max-width: 1279px) {
+  .history__photo { display: none; }
+}

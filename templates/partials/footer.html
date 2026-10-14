@@ -1,0 +1,49 @@
+<footer class="footer">
+    <div class="footer__top">
+        <div class="footer__info">
+            <p class="footer__name">리움미술관</p>
+            <p>04348 서울특별시 용산구 이태원로55길 60-16</p>
+            <p>대표전화. 02-2014-6900</p>
+        </div>
+        <ul class="footer__sns">
+            <li><a href="#" aria-label="인스타그램"><img src="{{ url_for('static', filename='images/icons/icon-instagram.svg') }}" alt=""></a></li>
+            <li><a href="#" aria-label="유튜브"><img src="{{ url_for('static', filename='images/icons/icon-youtube.svg') }}" alt=""></a></li>
+            <li><a href="#" aria-label="페이스북"><img src="{{ url_for('static', filename='images/icons/icon-facebook.svg') }}" alt=""></a></li>
+        </ul>
+    </div>
+
+    <div class="footer__bottom">
+        <div class="footer__links">
+            <ul class="footer__menu">
+                <li><a href="#">미술관 소개</a></li>
+                <li><a href="#">공지</a></li>
+                <li><a href="#">보도자료</a></li>
+                <li><a href="#">법인회원</a></li>
+            </ul>
+            <ul class="footer__sub">
+                <li><a href="#">이메일 문의</a></li>
+                <li><a href="#" class="footer__privacy">개인정보 처리방침</a></li>
+            </ul>
+        </div>
+
+        <div class="footer__center">
+            <p class="footer__copy">© Leeum Museum of Art, All Rights Reserved.</p>
+            <p class="footer__notice">본 프로젝트는 실제 서비스를 기반으로 제작한 UX/UI 리디자인 학습 목적의 비공식 컨셉 작업이며, 리움미술관과 무관합니다.</p>
+        </div>
+
+        <div class="footer__right">
+            <div class="footer__iso">
+                <img src="{{ url_for('static', filename='images/footer/iso-14001.svg') }}" alt="ISO 14001 인증">
+                <img src="{{ url_for('static', filename='images/footer/iso-45001.svg') }}" alt="ISO 45001 인증">
+                <img src="{{ url_for('static', filename='images/footer/wa.png') }}" alt="웹 접근성 품질인증" width="66" height="45">
+            </div>
+            <div class="footer__family">
+                <select aria-label="패밀리 사이트">
+                    <option>패밀리 사이트</option>
+                    <option>호암미술관</option>
+                </select>
+                <button type="button" class="btn-chip footer__go">이동</button>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,551 @@
+/* ===== 09 예약 ===== */
+.reserve {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* --- 좌측 카드 --- */
+.reserve__side {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 340px;
+  flex-shrink: 0;
+}
+.reserve__heading { font: var(--font-h3); }
+
+.ticket {
+  border: 1px solid var(--color-line-weak);
+  border-radius: var(--radius-base);
+  box-shadow: 8px 8px 50px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+.ticket__img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+.ticket__title {
+  padding: 20px;
+  border-bottom: 1px dashed var(--color-text-sub);
+}
+.ticket__info { padding: 0 20px; color: var(--color-text-sub); }
+.ticket__info li {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.ticket__info li:last-child { border-bottom: none; }
+
+/* --- 우측 단계 --- */
+.reserve__main { flex: 1; }
+
+.step__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  border-bottom: 1px solid var(--color-line);
+  font: var(--font-h3);
+}
+.step__head img { width: 20px; height: 20px; }
+
+.date {
+  display: flex;
+  gap: 30px;
+  padding: 45px 50px;
+  background: var(--color-surface);
+}
+
+/* --- 달력 --- */
+.cal { width: 630px; flex-shrink: 0; }
+.cal__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 35px;
+}
+.cal__month {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 8px 0 10px;
+  border-bottom: 1px solid var(--color-text);
+  font: var(--font-h4);
+}
+.cal__tri { font-size: 10px; }
+.cal__nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--font-small);
+}
+.cal__nav img { width: 20px; height: 20px; }
+.cal__bar { font: var(--font-caption); }
+
+.cal__week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  height: 30px;
+  align-items: center;
+  text-align: center;
+}
+
+/* 칸 사이 1px 선 = grid gap + 배경색 */
+.cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 90px);
+  gap: 1px;
+  background: var(--color-line-weak);
+}
+.cal__day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90px;
+  background: var(--color-bg);
+  font: var(--font-h4);
+  color: var(--color-text-sub);
+}
+.cal__closed,
+.cal__day.is-available span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-pill);
+}
+.cal__closed {
+  background: var(--color-text-sub);
+  color: var(--color-text-inverse);
+  font: var(--font-small);
+}
+.cal__day.is-available { background: var(--color-accent); }
+.cal__day.is-available span {
+  background: var(--color-accent-light);
+  color: var(--color-text);
+}
+
+/* --- 범례 · 안내 --- */
+.date__side {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 396px;
+}
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font: var(--font-small);
+}
+.legend li { display: flex; align-items: center; gap: 10px; }
+.legend img { width: 16px; height: 16px; }
+
+.notice-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-base);
+  background: var(--color-bg);
+  font: var(--font-small);
+  font-weight: 400;
+  color: var(--color-text-sub);
+}
+.notice-box__title {
+  font: var(--font-body);
+  color: var(--color-text);
+}
+
+/* 3번째 줄(두 번째 문단)부터 위에 점선 */
+.notice-box p:nth-child(n+3) {
+  padding-top: 10px;
+  border-top: 1px dashed var(--color-line);
+}
+
+/* 선택한 날짜 */
+.cal__day.is-selected { background: var(--color-cta); }
+.cal__day.is-selected span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* --- 시간 선택 --- */
+.time {
+  position: relative;
+  display: flex;
+  gap: 101px;                  /* 50 + 선 1 + 50 */
+  padding: 45px 50px;
+  background: var(--color-surface);
+}
+/* 가운데 세로선 */
+.time::before {
+  content: '';
+  position: absolute;
+  top: 45px;
+  bottom: 45px;
+  left: 50%;
+  width: 1px;
+  background: var(--color-line);
+}
+.time__col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 52px;
+  padding: 0 40px;
+  border-radius: var(--radius-base);
+  background: var(--color-bg);
+  font: var(--font-h5);
+}
+.slot.is-selected {
+  background: var(--color-cta);
+  color: var(--color-text-inverse);
+}
+
+/* --- 인원 선택 --- */
+.people {
+  display: flex;
+  align-items: center;
+  padding: 45px 50px;
+  background: var(--color-surface);
+}
+.people__label {
+  width: 370px;
+  flex-shrink: 0;
+  font: var(--font-h5);
+}
+.people__btns { flex: 1; display: flex; }
+.people__btns button {
+  flex: 1;
+  height: 52px;
+  background: var(--color-bg);
+  font: var(--font-h5);
+}
+.people__btns button + button { border-left: 1px solid var(--color-line); }
+.people__btns button.is-selected {
+  background: var(--color-cta);
+  color: var(--color-text-inverse);
+}
+
+/* --- 하단 --- */
+.reserve__foot {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 80px;
+  text-align: center;
+  font: var(--font-small);
+  color: var(--color-text-sub);
+}
+.btn-next {
+  display: flex;                
+  align-items: center;         
+  justify-content: center; 
+  height: 60px;
+  border-radius: var(--radius-base);
+  background: var(--color-cta);
+  color: var(--color-text-inverse);
+  font: var(--font-h5);
+}
+.btn-next:disabled {
+  background: var(--color-line);
+  color: var(--color-text-sub);
+  cursor: not-allowed;
+}
+
+/* ===== 10 예약 확인 ===== */
+.confirm__heading {
+  height: 70px;
+  font: var(--font-h3);
+}
+
+/* 정보 카드 (10 · 11 · 14 공통) */
+.info-card {
+  padding: 40px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-base);
+}
+.info-card__title {
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--color-text);
+  font: var(--font-h4);
+}
+.info-card__title--gap { padding-top: 40px; }
+.info-card__list div {
+  display: flex;
+  gap: 40px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-line-weak);
+  font: var(--font-h5);
+}
+.info-card__list div:last-child { border-bottom: none; }
+.info-card__list dt { width: 140px; flex-shrink: 0; }
+
+/* 안내 박스 */
+.guide {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+  padding: 30px;
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-base);
+  background: var(--color-bg-sub);
+  color: var(--color-text-sub);
+}
+.guide ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.guide__title { color: var(--color-text); }
+
+/* 버튼 */
+.confirm__btns {
+  display: flex;
+  gap: 10px;
+  padding-top: 50px;
+}
+.confirm__btns .btn-next { flex: 1; }
+.btn-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 60px;
+  border-radius: var(--radius-base);
+  background: var(--color-surface);
+  color: var(--color-text-sub);
+  font: var(--font-h5);
+}
+
+/* ===== 14 예약 상세 ===== */
+.detail-photo {
+  width: 340px;
+  height: 510px;
+  flex-shrink: 0;
+  margin-top: 70px;          /* 오른쪽 제목 영역(70)만큼 내려서 카드 윗선에 맞춤 */
+  object-fit: cover;
+}
+.btn-back--full { width: 100%; }
+
+/* 자동 스크롤 시 고정 헤더(64)에 가리지 않게 */
+.step { scroll-margin-top: 84px; }   /* 판단: 헤더 64 + 여유 20 */
+
+/* 단계 접기/펼치기 */
+.step__toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font: inherit;
+  text-align: left;
+}
+.step__toggle:disabled { cursor: default; }
+.step__arrow { transition: transform .2s ease; }
+.step.is-collapsed .step__arrow { transform: rotate(180deg); }   /* 접히면 화살표 아래로 */
+@media (prefers-reduced-motion: reduce) {
+  .step__arrow { transition: none; }
+}
+
+/* 모달 닫은 뒤 제목으로 포커스가 올 때 테두리 안 보이게 */
+.confirm__heading:focus { outline: none; }
+
+/* ===== 모바일 (09 · 09-1 예약) ===== */
+@media (max-width: 767px) {
+  .reserve {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 30px;
+  }
+
+  /* 위: 개인 예매 카드 */
+  .reserve__side { width: 100%; gap: 0; }
+  .reserve__heading {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    font: var(--font-h5);
+  }
+  .ticket { border-color: var(--color-line); box-shadow: none; }
+  .ticket__img { height: 171px; }
+  .ticket__title { padding: 12px 20px; font: var(--font-m-text); }
+  .ticket__info { font: var(--font-m-text); }
+  .ticket__info li { padding: 12px 0; }
+
+  /* 아래: 단계 — 회색 영역은 화면 끝까지 */
+  .reserve__main { flex: none; }
+  .reserve__form { margin: 0 -30px; }   /* 09만: 회색 영역 화면 끝까지 (10·14는 여백 유지) */
+  .step { scroll-margin-top: 62px; }            /* 헤더 52 + 여유 10 */
+  .step__head {
+    height: 60px;
+    padding: 0 30px;
+    font: var(--font-h5);
+  }
+
+  /* 날짜 */
+  .date {
+    flex-direction: column;
+    gap: 30px;
+    padding: 30px;
+  }
+  .cal { width: 100%; }
+  .cal__month { padding: 0 5px 0 8px; font: var(--font-m-small); }
+  .cal__nav { gap: 6px; font: var(--font-m-caption); }
+  .cal__nav img { width: 15px; height: 15px; }
+  .cal__week { font: var(--font-m-caption); }
+  .cal__grid { grid-template-columns: repeat(7, 1fr); }
+  .cal__day { height: 47px; font: var(--font-m-small); }
+  .cal__closed,
+  .cal__day.is-available span,
+  .cal__day.is-selected span { width: 36px; height: 36px; }
+  .cal__closed { font: var(--font-m-micro); }
+
+  .date__side { width: 100%; }
+  .legend { flex-direction: row; gap: 20px; font: var(--font-m-caption); }
+  .legend li { gap: 6px; }
+  .legend img { width: 15px; height: 15px; }
+  .notice-box { font: var(--font-m-caption); font-weight: 400; }
+  .notice-box__title { font: var(--font-m-small); }
+
+  /* 시간: 1열 */
+  .time {
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+  }
+  .time::before { display: none; }
+  .slot { padding: 0 40px; font: var(--font-m-small); }
+
+  /* 인원 */
+  .people {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 30px;
+  }
+  .people__label { width: auto; font: var(--font-m-caption); }
+  .people__btns button { font: var(--font-m-small); }
+
+  /* 안내문 + 다음 */
+  .reserve__foot {
+    gap: 15px;
+    padding: 60px 30px 0;
+    font: var(--font-m-caption);
+  }
+  .btn-next { height: 48px; font: var(--font-m-small); }
+}
+
+/* ===== 모바일 (10 예약 확인 · 14 예약 상세 공통 카드) ===== */
+@media (max-width: 767px) {
+  .confirm__heading {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    font: var(--font-h5);
+  }
+
+  .info-card { padding: 30px; }
+  .info-card__title {
+    padding-bottom: 15px;
+    margin-bottom: 0;
+    font: var(--font-m-body);
+  }
+  .info-card__title--gap { padding-top: 30px; }
+  .info-card__list div {
+    align-items: center;
+    gap: 0;
+    height: 60px;
+    padding: 0;
+    font: var(--font-m-small);
+  }
+  .info-card__list div:last-child { border-bottom: 1px solid var(--color-line-weak); }
+  .info-card__list dt { width: 100px; }
+
+  .guide {
+    margin-top: 30px;
+    padding: 20px;
+  }
+  .guide ul { font: var(--font-m-caption); }
+  .guide__title { font: var(--font-m-small); }
+
+  .confirm__btns { padding-top: 30px; }
+  .btn-back {
+    width: 100px;
+    height: 48px;
+    font: var(--font-m-small);
+  }
+}
+
+/* ===== 모바일 (14 예약 상세) ===== */
+@media (max-width: 767px) {
+  .detail-photo { display: none; }          /* 모바일은 사진 없음 */
+  .btn-back--full { width: 100%; }          /* 위 .btn-back 100px보다 뒤에 둬야 적용됨 */
+}
+
+/* ===== 768~1279: 티켓 위 · 단계 아래 (09 · 10 · 14) ===== */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .reserve {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .reserve__side { width: 100%; }
+  .reserve__main { flex: none; }
+  .detail-photo { display: none; }               /* 14: 모바일처럼 사진 없음 */
+}
+
+/* ===== 768~1599: 달력 영역 · 인원 영역 세로로 ===== */
+@media (min-width: 768px) and (max-width: 1599px) {
+  .date { flex-direction: column; }
+  .cal { width: auto; }
+  .cal__grid { grid-template-columns: repeat(7, 1fr); }
+  .date__side { width: auto; }
+  .people {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .people__label { width: auto; }
+}
+
+/* ===== 달력: 이번 달 + 다음 달 넘기기 ===== */
+.cal__grid[hidden] { display: none; }
+.cal__nav button:disabled { opacity: 0.3; cursor: default; }
+.cal__nav img:has(+ button:disabled),
+.cal__nav button:disabled + img { opacity: 0.3; }       /* 화살표도 같이 흐리게 */
+
+/* ===== AI 예상 혼잡도 (09 시간 선택) ===== */
+.step__hint {
+  margin-left: auto;                 /* 제목 오른쪽, 화살표 앞 */
+  margin-right: 15px;
+  font: var(--font-small);
+  font-weight: 400;
+  color: var(--color-text-sub);
+}
+.slot[data-level="여유"] .slot__state { color: var(--color-text-sub); }
+.slot[data-level="보통"] .slot__state { color: var(--color-accent-strong); }
+.slot[data-level="혼잡"] .slot__state { color: var(--color-text-error); font-weight: 700; }
+.slot.is-selected .slot__state { color: inherit; }       /* 선택된 칸(검정)에선 흰 글자 */
+
+@media (max-width: 767px) {
+  .step__hint { font: var(--font-m-caption); }
+}

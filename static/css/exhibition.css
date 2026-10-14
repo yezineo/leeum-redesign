@@ -1,0 +1,198 @@
+/* 07 전시 목록 */
+.exhibit-list--page {
+  row-gap: 40px;
+  padding-bottom: 72px;
+}
+
+/* 07 빈 화면 (예정전시 없음) */
+.exhibit-empty {
+  padding: 120px 0;
+  text-align: center;
+  color: var(--color-text-sub);
+}
+
+/* 08 전시 상세 */
+.detail {
+  width: 960px;
+  margin: 0 auto;
+}
+.detail__img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.detail__title {
+  font: var(--font-h4);
+  text-align: center;
+  margin: 20px 0 10px;
+}
+.detail__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.detail__desc { color: var(--color-text-sub); }
+
+.detail__line {
+  border: none;
+  height: 1px;
+  background: var(--color-line-weak);
+}
+.detail__line--50 { margin: 50px 0; }
+.detail__line--30 { margin: 30px 0; }
+
+.detail__box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: var(--radius-base);
+  background: var(--color-surface);
+  font: var(--font-small);
+}
+.detail__box div { display: flex; }
+.detail__box dt {
+  width: 200px;
+  flex-shrink: 0;
+  color: var(--color-text-sub);
+}
+
+.detail__text {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 50px;
+}
+
+.detail__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: var(--font-small);
+  color: var(--color-text-sub);
+}
+
+/* 08 템플릿화: 종료 버튼 · 본문 첫 블록 · 작품 이미지 · 크레딧 */
+.btn-primary--ended {                      /* 누를 수 없음이 보이게 */
+  background: var(--color-line-weak);
+  color: var(--color-text-sub);
+  cursor: default;
+  pointer-events: none;
+}
+.detail__text--first { padding-top: 0; }   /* 운영 정보 박스가 없을 때 위 여백 겹침 방지 */
+
+.detail__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+.detail__figure img {
+  max-width: 100%;
+  max-height: 640px;                       /* 판단: 세로로 긴 작품이 화면을 다 차지하지 않게 */
+}
+.detail__figure--wide img {                /* 원본처럼 본문 폭 꽉 채움 */
+  width: 100%;
+  max-height: none;
+}
+.detail__figure figcaption {
+  font: var(--font-caption);
+  color: var(--color-text-sub);
+  text-align: center;
+}
+
+.detail__sub {                             /* 본문 소제목 (고미술 층별 등) */
+  font: var(--font-h5);
+  margin-top: 20px;
+}
+.sr-only {                                 /* 화면엔 안 보이고 스크린리더만 읽음 */
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+.detail__credits {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 30px;
+  padding-left: 20px;
+  list-style: disc;
+  font: var(--font-small);
+}
+.detail__foot .btn-secondary { margin-left: auto; }   /* 협찬 문구 없어도 버튼은 오른쪽 */
+
+/* ===== 모바일 (07 전시 목록) ===== */
+@media (max-width: 767px) {
+  .exhibit-list--page {
+    grid-template-columns: repeat(2, 1fr);   /* 메인은 1열, 목록은 2열 */
+    gap: 40px 16px;                          /* 세로 40 · 가로 16 */
+    padding-bottom: 50px;
+  }
+  .exhibit-list--page .card__title { font: var(--font-small); }      /* 14/22 */
+  .exhibit-list--page .card__desc { font: var(--font-m-caption); }   /* 12/16 */
+  .exhibit-empty { padding: 80px 0; font: var(--font-m-small); }
+}
+
+/* ===== 모바일 (08 전시 상세) ===== */
+@media (max-width: 767px) {
+  .detail { width: 100%; }
+  .detail__title { font: var(--font-m-body); }
+
+  /* 정보: 장소·기간 위 / 예약 버튼 아래(전체 폭) */
+  .detail__info {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .detail__desc { font: var(--font-m-small); }
+  .detail__info .btn-primary {
+    justify-content: center;
+    height: 30px;
+    font: var(--font-m-small);
+  }
+
+  .detail__line--50 { margin: 30px 0; }
+
+  /* 운영 정보: 라벨 위 · 값 아래 */
+  .detail__box {
+    gap: 15px;
+    font: var(--font-m-small);
+  }
+  .detail__box div {
+    flex-direction: column;
+    gap: 3px;
+  }
+  .detail__box dt { width: auto; }
+
+  /* 소개글 */
+  .detail__text {
+    padding-top: 40px;
+    font: var(--font-m-text);
+  }
+  .detail__text--first { padding-top: 0; }
+  .detail__figure img { max-height: 480px; }
+  .detail__figure--wide img { max-height: none; }
+  .detail__figure figcaption { font: var(--font-m-micro); }
+  .detail__credits { font: var(--font-m-small); }
+  .detail__sub { font: var(--font-m-body-bold); margin-top: 10px; }
+
+  /* 협찬 문구 → 목록 버튼(가운데) */
+  .detail__foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    font: var(--font-m-caption);
+  }
+  .detail__foot .btn-secondary {
+    align-self: center;
+    margin-left: 0;
+    height: 28px;
+    font: var(--font-m-caption);
+  }
+}
+
+/* ===== 태블릿 · 작은 PC (08) ===== */
+@media (min-width: 768px) {
+  .detail { max-width: 100%; }
+}

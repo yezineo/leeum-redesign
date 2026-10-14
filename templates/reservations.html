@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/history.css') }}">
+{% endblock %}
+
+{# 탭 하나의 내용: 예약이 있으면 목록, 없으면 빈 화면 #}
+{% macro panel(panel_id, tab_id, items, empty_text, show) %}
+  {% if items %}
+  <ul class="history__list" id="{{ panel_id }}" role="tabpanel" aria-labelledby="{{ tab_id }}" {% if not show %}hidden{% endif %}>
+    {% for r in items %}
+    <li class="history__item">
+      <img class="history__thumb" src="{{ url_for('static', filename='images/exhibitions/' ~ r.img) }}" alt="">
+      <div class="history__info">
+        <p class="history__name">{{ r.title }}</p>
+        <p class="history__meta">{{ r.info }}</p>
+        <div class="history__bottom">
+          <p class="history__sub">
+            <span>예약일 {{ r.booked }}</span>
+            <span class="history__bar">|</span>
+            <span>{{ r.pay }}</span>
+          </p>
+          <a href="{{ url_for('reservation_detail', reserve_no=r.no) }}" class="history__btn">예약 상세</a>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="history__empty" id="{{ panel_id }}" role="tabpanel" aria-labelledby="{{ tab_id }}" {% if not show %}hidden{% endif %}>
+    <p>{{ empty_text }}</p>
+    <a href="{{ url_for('exhibitions') }}" class="history__go">전시 보러 가기</a>
+  </div>
+  {% endif %}
+{% endmacro %}
+
+{% block content %}
+<div class="history">
+  <div class="history__photo">
+    <img src="{{ url_for('static', filename='images/exhibitions/reserve-detail.jpg') }}" alt="">
+  </div>
+
+  <section class="history__main">
+    <h2 class="history__title">예약 내역</h2>
+
+    <div class="history__card">
+      <div class="history__tabs" role="tablist" aria-label="예약 구분">
+        <button type="button" class="history__tab is-active" id="tab-upcoming" role="tab"
+                aria-selected="true" aria-controls="panel-upcoming">다가오는 예약</button>
+        <button type="button" class="history__tab" id="tab-past" role="tab"
+                aria-selected="false" aria-controls="panel-past" tabindex="-1">지난 예약</button>
+      </div>
+
+      {{ panel('panel-upcoming', 'tab-upcoming', upcoming, '다가오는 예약이 없습니다.', true) }}
+      {{ panel('panel-past', 'tab-past', past, '지난 예약이 없습니다.', false) }}
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/reservations.js') }}"></script>
+{% endblock %}

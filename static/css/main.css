@@ -1,0 +1,295 @@
+/* ===== 히어로 (슬라이드) ===== */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-line);
+}
+.hero__track {
+  display: flex;
+  height: 100%;
+  transition: transform .6s ease;
+  touch-action: pan-y;                /* 세로 스크롤은 그대로, 가로로 끌면 슬라이드 */
+  cursor: grab;
+}
+.hero.is-dragging .hero__track { transition: none; cursor: grabbing; }
+.hero__slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+}
+.hero__slide picture { display: block; height: 100%; }
+.hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+.hero__card {
+  position: absolute;
+  left: 25px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  width: 600px;
+  padding: 15px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: auto;
+}
+.hero__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.hero__title { font: var(--font-h4); }
+.hero__info {
+  font: var(--font-body);
+  color: var(--color-text-sub);
+}
+
+/* 컨트롤: 점 4개 | 일시정지 — 바닥선을 카드(bottom 20)와 맞춤 */
+.hero__ctrl {
+  position: absolute;
+  right: 25px;
+  bottom: 20px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  height: 36px;                       /* 피그마 24 → 36으로 키움 */
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.2);
+  transition: background-color .4s;
+}
+.hero__dots { display: flex; gap: 20px; }
+.hero__dot {
+  position: relative;
+  width: 24px;                        /* 누르는 칸 24×24 */
+  height: 24px;
+  border-radius: 50%;
+}
+.hero__dot::before {                  /* 점 6px */
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  background: var(--color-text-inverse);
+}
+.hero__dot.is-active::after {         /* 현재: 16px 링 */
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--color-text-inverse);
+  border-radius: 50%;
+}
+.hero__bar {                          /* 점과 일시정지 구분선 */
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.4);
+  transition: background-color .4s;
+}
+.hero__play { display: flex; border-radius: 50%; }
+.hero__play img { width: 24px; height: 24px; }
+.hero__dot:focus-visible,
+.hero__play:focus-visible {
+  outline: 2px solid var(--color-text-inverse);
+  outline-offset: 2px;
+}
+
+/* 어두운 카드 (밝거나 복잡한 이미지 위) */
+.hero__card { transition: background-color .4s; }
+.hero__slide[data-card="dark"] .hero__card { background: rgba(0, 0, 0, 0.8); }
+.hero__slide[data-card="dark"] .hero__title,
+.hero__slide[data-card="dark"] .hero__info { color: var(--color-text-inverse); }
+
+/* 밝은 이미지(light): 컨트롤을 검정으로 */
+.hero[data-theme="light"] .hero__ctrl { background: rgba(255, 255, 255, 0.45); }
+.hero[data-theme="light"] .hero__dot::before { background: var(--color-text); }
+.hero[data-theme="light"] .hero__dot.is-active::after { border-color: var(--color-text); }
+.hero[data-theme="light"] .hero__bar { background: rgba(0, 0, 0, 0.3); }
+.hero[data-theme="light"] .hero__play img { filter: invert(1); }   /* 흰 아이콘 → 검정 */
+.hero[data-theme="light"] .hero__dot:focus-visible,
+.hero[data-theme="light"] .hero__play:focus-visible { outline-color: var(--color-text); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__track { transition: none; }
+}
+
+/* ===== 본문 ===== */
+.main-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 50px 192px 100px;
+}
+.divider {
+  border: none;
+  height: 1px;
+  background: var(--color-line-weak);
+}
+
+.main-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.main-sec__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.main-sec__title { font: var(--font-page-title); }
+
+/* 소장품 — 4열 · 작품 비율 그대로 · 아래 정렬 */
+.collection-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: end;
+}
+
+/* ===== 공지 ===== */
+.notice-list {
+  border-top: 1px solid var(--color-line);
+}
+.notice-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 45px;
+  border-bottom: 1px solid var(--color-line);
+}
+.notice-list time { color: var(--color-text-sub); }
+
+/* ===== 모바일 (01 메인) ===== */
+@media (max-width: 767px) {
+  /* 히어로 */
+  .hero { height: 100svh; }                 /* 판단: 주소창 높이를 뺀 화면 높이 */
+  .hero__card {
+    left: 10px;
+    right: 10px;
+    bottom: 88px;                           /* 플로팅(아래 15 + 40) 위 */
+    width: auto;
+    gap: 30px;
+    padding: 20px 15px;
+    border-radius: var(--radius-base);
+  }
+  .hero__title { font: var(--font-m-body); text-align: center; }
+  .hero__info { font: var(--font-m-text); }
+  .hero__ctrl { display: none; }            /* 모바일은 컨트롤 없음 (누르는 동안 멈춤) */
+
+  /* 본문 */
+  .main-wrap { padding: 50px 30px 100px; }
+  .main-sec__title { font: var(--font-m-title); }
+
+  /* 소장품: 가운데 카드 강조 슬라이드 (손가락으로 넘김) */
+  .collection-list {
+    position: relative;
+    display: flex;
+    gap: 35px;
+    align-items: flex-end;
+    margin: 0 -30px;                        /* 본문 여백 밖, 화면 끝까지 */
+    padding: 0 calc(50vw - 120px);          /* 첫 카드·마지막 카드도 가운데 올 수 있게 */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .collection-list::-webkit-scrollbar { display: none; }
+  .collection-list .card {
+    flex: 0 0 240px;
+    scroll-snap-align: center;
+    opacity: 0.4;
+    transition: opacity .3s;
+  }
+  .collection-list .card.is-current { opacity: 1; }
+  .collection-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: -10px;                      /* 섹션 gap 30 → 슬라이드와 점 사이 20 */
+  }
+  .collection-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-line);          /* 판단 */
+  }
+  .collection-dots span.is-active { background: var(--color-text-sub); }  /* 판단 */
+
+  /* 공지: 제목 위 · 날짜 아래 */
+  .notice-list a {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    height: auto;
+    padding: 10px 0;
+    font: var(--font-m-text);
+  }
+}
+.collection-dots { display: none; }         /* PC에선 점 없음 */
+@media (max-width: 767px) {
+  .collection-dots { display: flex; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .collection-list .card { transition: none; }
+}
+
+/* ===== 태블릿 · 작은 PC ===== */
+@media (min-width: 768px) {
+  .main-wrap {
+    padding-left: clamp(30px, 10vw, 192px);
+    padding-right: clamp(30px, 10vw, 192px);
+  }
+}
+@media (min-width: 768px) and (max-width: 1279px) {
+  .hero__card { width: min(600px, calc(100% - 325px)); }   /* 컨트롤(약 245)과 30 띄우기, 최대 600 */
+}
+
+/* ===== 02 메인: 다가오는 예약 띠 (로그인 + 예약 있을 때) ===== */
+.upcoming {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px clamp(30px, 10vw, 192px);      /* 판단: 1920에서 192 */
+  background: var(--color-bg-sub, #f9f9f9);
+}
+.upcoming__info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  font: var(--font-body);
+  font-weight: 600;
+  color: var(--color-text-sub);
+}
+.upcoming__bar { color: var(--color-line); }
+.upcoming__btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 15px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  font: var(--font-small);
+  font-weight: 600;
+  color: var(--color-text-sub);
+}
+
+@media (max-width: 767px) {
+  .upcoming { min-height: 72px; padding: 0 30px; }
+  .upcoming__info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    font-size: 13px;
+    line-height: 19px;
+  }
+  .upcoming__bar { display: none; }
+}

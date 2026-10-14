@@ -1,0 +1,581 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+input, textarea, select { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+body {
+  font: var(--font-body);
+  letter-spacing: var(--letter-spacing);
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+@media (max-width: 767px) {
+  body { font: var(--font-m-small); }
+}
+
+/* ===== 공통 버튼 ===== */
+.btn-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 25px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text-sub);
+  font: var(--font-caption);
+}
+
+/* ===== 헤더 ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 25px;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.header__logo { display: flex; }
+
+/* GNB — 화면 정가운데 고정 */
+.header__gnb {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.header__gnb ul {
+  display: flex;
+  gap: 80px;
+}
+.header__gnb a {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  font: var(--font-gnb);
+}
+
+.header__btns {
+  display: flex;
+  gap: 10px;
+}
+
+/* 흰색 버전 (메인) */
+.header--white {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: transparent;
+  color: var(--color-text-inverse);
+  transition: background-color .4s, color .4s;
+}
+.header--white.is-scrolled {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+/* 밝은 히어로 이미지 위: 투명 배경 + 검정 글자 */
+.header--white.is-light { color: var(--color-text); }
+
+/* ===== 푸터 ===== */
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 25px;
+  border-top: 1px solid var(--color-line-weak);
+}
+
+/* 위: 정보 + SNS */
+.footer__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.footer__name {
+  font: var(--font-h5);
+  margin-bottom: 10px;
+}
+.footer__sns {
+  display: flex;
+  gap: 10px;
+}
+.footer__sns a { display: flex; }
+.footer__sns img { width: 40px; height: 40px; }
+
+/* 아래: 링크 · 카피라이트 · 인증/패밀리 */
+.footer__bottom {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font: var(--font-small);
+}
+.footer__menu,
+.footer__sub {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.footer__menu li + li::before,
+.footer__sub li + li::before {
+  content: '|';
+  font: var(--font-micro);
+  margin-right: 3px;
+}
+.footer__sub { color: var(--color-text-sub); }
+.footer__privacy {
+  padding: 4px 6px 5px;
+  border-radius: 5px;
+  background: var(--color-text);
+  color: var(--color-text-inverse);
+}
+
+/* 카피라이트 — 화면 정가운데 고정 */
+.footer__center {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.footer__copy { font: var(--font-small); }
+.footer__notice {
+  font: var(--font-caption);
+  color: var(--color-text-sub);
+  white-space: nowrap;
+}
+
+.footer__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+.footer__iso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.footer__family {
+  display: flex;
+  gap: 10px;
+}
+.footer__family select {
+  height: 30px;
+  padding: 0 28px 0 10px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-base);
+  background: var(--color-bg) url('../images/icons/icon-arrow-up.svg') no-repeat right 10px center / 13px;
+  font: var(--font-caption);
+  color: var(--color-text-sub);
+  appearance: none;
+}
+.footer__go { height: 30px; padding: 0 16px; }
+
+/* ===== Secondary 버튼 (pill · H 32) ===== */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 15px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text-sub);
+  font: var(--font-small);
+}
+.btn-secondary--accent { background: var(--color-accent-light); }
+
+/* ===== 플로팅 버튼 ===== */
+.floating__btn {
+  display: flex;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+.floating__btn img { width: 50px; height: 50px; }
+.floating__access {
+  position: fixed;
+  left: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 98;
+}
+.floating__right {
+  position: fixed;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 98;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* top 버튼: 맨 위에서는 숨김, 스크롤하면 나타남 */
+.floating__top { transition: opacity .3s, visibility .3s; }
+.floating__top.is-hidden { opacity: 0; visibility: hidden; }
+
+/* 챗봇 버튼 이동 (JS가 거리를 계산해서 내려줌) */
+.floating__chat { transition: transform .3s ease; }
+.is-chat-open .floating__top { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .floating__chat { transition: none; }
+}
+
+/* ===== 페이지 공통 틀 ===== */
+.page { padding: 60px 192px 100px; }
+.page__title {
+  font: var(--font-page-title);
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+/* ===== 탭 (07 · 13) ===== */
+.tabs {
+  display: flex;
+  gap: 2px;
+  padding-bottom: 30px;
+}
+.tab {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 9px;
+  border-radius: var(--radius-tab);
+  font: var(--font-small);
+  color: var(--color-text-sub);
+}
+.tab.is-active {
+  background: var(--color-accent-strong);
+  color: var(--color-text-inverse);
+}
+
+/* ===== 페이지네이션 ===== */
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+.pagination__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  font: var(--font-h5);
+  color: var(--color-text-sub);
+}
+.pagination__btn img { width: 18px; height: 18px; }
+.pagination__btn.is-active { background: var(--color-surface); }
+
+/* ===== 카드 공통 ===== */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.card__img {
+  width: 100%;
+  object-fit: cover;
+}
+.card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.card__title { font: var(--font-h5); }
+.card__desc {
+  font: var(--font-small);
+  color: var(--color-text-sub);
+}
+
+/* 전시 — 3열 · 이미지 1.9:1 */
+.exhibit-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.exhibit-list .card__img { aspect-ratio: 1.9 / 1; }
+
+/* ===== Primary 버튼 (확정 행동 · 사각) ===== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 24px;
+  border-radius: var(--radius-base);
+  background: var(--color-cta);
+  color: var(--color-text-inverse);
+  font: var(--font-small);
+}
+
+/* ===== 딤 + 모달 ===== */
+.dim {
+  position: fixed;
+  inset: 0;                         /* 화면 전체 */
+  z-index: 100;                     /* 헤더(99)·플로팅(98)보다 위 */
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 화면 정가운데 */
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 600px;
+  padding: 40px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-base);
+  background: var(--color-bg);
+}
+.modal__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal__logo,
+.modal__close { display: flex; }
+.modal__close img { width: 20px; height: 20px; }
+.modal__body {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-text-sub);
+}
+.modal__title {
+  font: var(--font-h4-bold);
+  color: var(--color-text);
+  margin-bottom: 10px;
+}
+.modal__num {
+  font: var(--font-h5);
+  color: var(--color-text);
+}
+.modal__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  border-radius: var(--radius-base);
+  background: var(--color-cta);
+  color: var(--color-text-inverse);
+  font: var(--font-h5);
+}
+
+/* ===== 모바일 헤더 · 햄버거 메뉴 ===== */
+.header__m-btn,
+.header__menu-btn { display: none; }        /* PC에선 숨김 */
+
+.m-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;                              /* 헤더와 같은 층, 뒤에 있어서 헤더를 덮음 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;                  /* 메뉴 5개 화면 세로 가운데 */
+  background: var(--color-text);
+  color: var(--color-text-inverse);
+}
+.m-menu__top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 52px;
+  padding: 0 10px;
+}
+.m-menu__logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+.m-menu__close { display: flex; }
+.m-menu__close svg,
+.header__menu-btn svg { width: 30px; height: 30px; }
+.m-menu__nav a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  font: var(--font-h4-bold);
+}
+.m-menu__account {                          /* 오른쪽 아래, 플로팅 위 */
+  position: absolute;
+  right: 10px;
+  bottom: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.is-menu-open { overflow: hidden; }         /* 메뉴 열리면 뒤 화면 스크롤 막기 */
+
+@media (max-width: 767px) {
+  /* 헤더: 로그인 | 로고(가운데) | 햄버거 */
+  .header { height: 52px; padding: 0 10px; }
+  .header__gnb,
+  .header__btns { display: none; }
+  .header__m-btn { display: inline-flex; }
+  .header__menu-btn { display: flex; color: var(--color-text-sub); }
+  .header--white:not(.is-scrolled) .header__menu-btn { color: inherit; }  /* 메인 히어로 위: 흰색(밝은 장은 검정) */
+  .header__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .header__logo svg,
+  .m-menu__logo svg { width: 82px; height: 20px; }
+
+  /* 플로팅: 40 · 아래 15 · 좌우 10, top 버튼 없음 */
+  .floating__btn img { width: 40px; height: 40px; }
+  .floating__access { top: auto; bottom: 15px; left: 10px; transform: none; }
+  .floating__right { top: auto; bottom: 15px; right: 10px; transform: none; }
+  .floating__top { display: none; }
+  .is-menu-open .floating__access,
+  .is-menu-open .floating__right { z-index: 100; }   /* 메뉴 위에도 플로팅 보이게 (피그마 17) */
+}
+
+/* ===== 모바일: 공통 버튼 · 카드 · 푸터 ===== */
+@media (max-width: 767px) {
+  .btn-secondary { font: var(--font-m-small); }
+  .card__title { font: var(--font-m-body); }
+  .card__desc { font: var(--font-m-small); }
+  .exhibit-list { grid-template-columns: 1fr; gap: 40px; }
+
+  /* 푸터: 정보 → 링크 → 인증·패밀리 → 카피라이트 */
+  .footer { gap: 40px; padding: 20px; }
+  .footer__name { font: var(--font-m-body); margin-bottom: 15px; }
+  .footer__sns { gap: 5px; }
+  .footer__sns img { width: 25px; height: 25px; }
+  .footer__bottom {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .footer__links { gap: 16px; font: var(--font-m-caption); }
+  .footer__right { align-items: flex-start; gap: 20px; }
+  .footer__center {
+    position: static;
+    transform: none;
+    order: 3;                               /* 맨 아래로 */
+    margin-top: 34px;                       /* gap 16 + 34 = 50 */
+  }
+  .footer__copy { font: var(--font-m-caption); }
+  .footer__notice {
+    margin-top: 4px;
+    white-space: normal;                    /* 모바일은 줄바꿈 허용 */
+    word-break: keep-all;
+    font: var(--font-m-micro);
+  }
+}
+
+/* ===== 모바일: 페이지 틀 · 탭 · 페이지네이션 (07 · 13 등 공통) ===== */
+@media (max-width: 767px) {
+  .page { padding: 48px 30px 100px; }
+  .page__title {
+    font: var(--font-m-title);
+    padding-bottom: 30px;
+  }
+  .tabs { gap: 5px; }
+  .tab {
+    padding: 0 12px;
+    font: var(--font-m-small);
+  }
+  .pagination__btn {
+    width: 30px;
+    height: 30px;
+    font: var(--font-m-body);
+  }
+}
+
+/* ===== 모바일: 모달 (11 예약 완료) ===== */
+@media (max-width: 767px) {
+  .modal {
+    width: calc(100% - 60px);               /* 좌우 30 */
+    gap: 20px;
+    padding: 30px;
+  }
+  .modal__logo svg { width: 82px; height: 20px; }
+  .modal__title { font: var(--font-m-body-bold); }
+  .modal__num { font: var(--font-m-small); }
+  .modal__body { font: var(--font-m-caption); }
+  .modal__btn { height: 48px; font: var(--font-m-small); }
+}
+
+/* ===== 태블릿 · 작은 PC (768~): 고정 값 → 유동 값 ===== */
+@media (min-width: 768px) {
+  .page {
+    padding-left: clamp(30px, 10vw, 192px);    /* 1920에서 192, 좁아지면 줄어듦 */
+    padding-right: clamp(30px, 10vw, 192px);
+  }
+  .header__gnb ul { gap: clamp(30px, 4.2vw, 80px); }   /* 1024에서 메뉴·버튼 겹침 방지 */
+  .modal { max-width: calc(100% - 60px); }
+}
+
+/* 태블릿 · 작은 노트북 (768~1279): 헤더는 햄버거 */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .header__gnb,
+  .header__btns { display: none; }
+  .header__m-btn { display: inline-flex; }
+  .header__menu-btn { display: flex; color: var(--color-text-sub); }
+  .header--white:not(.is-scrolled) .header__menu-btn { color: inherit; }
+  .header__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .m-menu__logo svg { width: 82px; height: 20px; }
+}
+
+/* 768~1279: 푸터 카피라이트를 아래 줄로 (가운데 고정이면 양옆과 겹침) */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .footer__bottom { flex-wrap: wrap; row-gap: 30px; }
+  .footer__center {
+    position: static;
+    transform: none;
+    order: 3;
+    width: 100%;
+  }
+  .footer__notice { white-space: normal; word-break: keep-all; }
+}
+
+/* ===== 플로팅: 챗봇을 접근성 버튼과 같은 높이로, top은 그 위에 따로 ===== */
+.floating__right { gap: 0; }
+.floating__top {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 20px);                /* 챗봇 위 20 */
+}
+@media (max-width: 1023px) {
+  .floating__top { display: none; }         /* top 버튼은 PC에서만 */
+}
+
+/* 카드 전체 클릭: 제목 링크의 클릭 영역을 카드 전체로 */
+.card { position: relative; }
+.card__link { color: inherit; text-decoration: none; }
+.card__link::after { content: ''; position: absolute; inset: 0; }
+.card__link:focus-visible { outline: none; }
+.card:has(.card__link:focus-visible) { outline: 2px solid var(--color-text); outline-offset: 4px; }

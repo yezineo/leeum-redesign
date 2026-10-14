@@ -1,0 +1,64 @@
+/* ===== 12 마이페이지 ===== */
+.mypage {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 720px;
+  margin: 0 auto;
+}
+
+.profile {
+  padding: 30px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-base);
+}
+.profile__name { font: var(--font-h5); }
+.profile__email { color: var(--color-text-sub); }
+
+.mypage__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.menu-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-base);
+  font: var(--font-h5);
+}
+.menu-card img {
+  box-sizing: content-box;
+  width: 18px;
+  height: 18px;
+  padding: 11px;              /* 18 + 11 × 2 = 40 박스 */
+}
+
+.mypage__leave {
+  align-self: flex-start;
+  font: var(--font-small);
+  color: var(--color-text-sub);
+  text-decoration: underline;
+}
+
+/* ===== 모바일 (12 마이페이지) ===== */
+@media (max-width: 767px) {
+  .mypage { width: 100%; gap: 20px; }
+  .profile { padding: 20px; }
+  .profile__name { font: var(--font-m-body); }
+  .profile__email { font: var(--font-m-small); }
+  .menu-card {
+    height: 60px;
+    padding: 0 20px;
+    font: var(--font-m-body);
+  }
+  .menu-card img { padding: 6px; }          /* 18 + 6 × 2 = 30 박스 */
+  .mypage__leave { font: var(--font-m-small); }
+}
+
+/* ===== 태블릿 · 작은 PC (12) ===== */
+@media (min-width: 768px) {
+  .mypage { max-width: 100%; }
+}

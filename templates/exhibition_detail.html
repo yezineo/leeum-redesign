@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}{{ ex.title }} | 리움미술관{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exhibition.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set show_info = ex.info and not ended %}
+<div class="page">
+    <article class="detail">
+        <!-- 블록 1: 이미지 + 기본 정보 -->
+        <img class="detail__img" src="{{ url_for('static', filename='images/exhibitions/' ~ (ex.detail_img or ex.img)) }}" alt="{{ ex.title }} 전시 이미지">
+        <h2 class="detail__title">{{ ex.title }}</h2>
+        <div class="detail__info">
+            <p class="detail__desc">{{ ex.place }}<br>{{ ex.date }}</p>
+            {% if ended %}
+            <span class="btn-primary btn-primary--ended" aria-disabled="true">종료된 전시</span>
+            {% elif ex.reserve %}
+            <a href="{{ url_for('reserve') }}" class="btn-primary">전시 예약</a>
+            {% elif ex.link %}
+            <a href="{{ ex.link }}" class="btn-primary" target="_blank" rel="noopener">전시 사이트 바로가기<span class="sr-only"> (새 창)</span></a>
+            {% endif %}
+        </div>
+
+        {% if show_info or ex.paras or ex.credits %}
+        <hr class="detail__line detail__line--50">
+
+        <!-- 블록 2: 운영 정보 (진행 중일 때만) -->
+        {% if show_info %}
+        <dl class="detail__box">
+            {% for label, value in ex.info %}
+            <div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>
+            {% endfor %}
+        </dl>
+        {% endif %}
+
+        <!-- 블록 3: 전시 소개 (글자 문단 + 작품 이미지) -->
+        {% if ex.paras %}
+        <div class="detail__text {{ '' if show_info else 'detail__text--first' }}">
+            {% for p in ex.paras %}
+            {% if p is string %}
+            <p>{{ p }}</p>
+            {% elif p.h %}
+            <h3 class="detail__sub">{{ p.h }}</h3>
+            {% else %}
+            <figure class="detail__figure{{ ' detail__figure--wide' if p.wide }}">
+                <img src="{{ url_for('static', filename='images/exhibitions/' ~ p.img) }}" alt="{{ p.caption or ex.title ~ ' 작품 이미지' }}">
+                {% if p.caption %}<figcaption>{{ p.caption }}</figcaption>{% endif %}
+            </figure>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if ex.credits %}
+        <ul class="detail__credits">
+            {% for c in ex.credits %}
+            <li>{{ c }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endif %}
+
+        <hr class="detail__line detail__line--30">
+
+        <div class="detail__foot">
+            {% if ex.note %}<p>{{ ex.note }}</p>{% endif %}
+            <a href="{{ url_for('exhibitions', tab=back_tab) }}" class="btn-secondary">목록 돌아가기</a>
+        </div>
+    </article>
+</div>
+{% endblock %}

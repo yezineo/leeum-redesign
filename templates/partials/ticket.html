@@ -1,0 +1,15 @@
+<aside class="reserve__side">
+    <h2 class="reserve__heading">개인예매</h2>
+    <div class="ticket">
+        <img class="ticket__img" src="{{ url_for('static', filename='images/exhibitions/reserve-card.jpg') }}" alt="">
+        <ul class="ticket__title">
+            <li>· 구정아: 우스모스</li>
+            <li>· [상설전]리움 소장품(고미술)</li>
+        </ul>
+        <ul class="ticket__info">
+            <li>장소 - M1, M2</li>
+            <li>일시 - <span id="ticket-date">{% if selected_date %}{{ selected_date|kodate }} {{ selected_time or '' }}{% endif %}</span></li>
+            <li>인원 - <span id="ticket-count">{% if count %}성인 {{ count }}{% endif %}</span></li>
+        </ul>
+    </div>
+</aside>

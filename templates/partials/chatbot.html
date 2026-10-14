@@ -1,0 +1,133 @@
+{% set view = chatbot_view|default('home') %}
+<aside class="chatbot {{ 'is-open' if chatbot_open }}" id="chatbot" data-view="{{ view }}" aria-label="리움미술관 챗봇">
+    
+    <button type="button" class="chatbot__close" aria-label="챗봇 닫기">
+        <span>{% include "partials/icon-menu-close.svg" %}</span>
+    </button>
+
+    {# 15 홈 #}
+    <section class="chatbot__view chatbot__view--home" {% if view != 'home' %}hidden{% endif %}>
+        <img class="chatbot__deco" src="{{ url_for('static', filename='images/chatbot/symbol-white.png') }}" alt="">
+        <div class="chatbot__fade"></div>
+
+        <div class="chatbot__top">
+            <span class="chatbot__logo">{% include "partials/logo.svg" %}</span>
+        </div>
+
+        <div class="chatbot__body">
+            <div class="chatbot__card">
+                <div class="chatbot__profile">
+                    <span class="chatbot__symbol">
+                        <img src="{{ url_for('static', filename='images/chatbot/symbol-black.png') }}" alt="">
+                    </span>
+                    <div class="chatbot__intro">
+                        <p class="chatbot__name">리움미술관</p>
+                        <p class="chatbot__greet">안녕하세요. 리움미술관입니다.<br>궁금한 내용을 물어보세요.</p>
+                    </div>
+                </div>
+                <button type="button" class="chatbot__ask">문의하기</button>
+            </div>
+
+            <div class="chatbot__hours">
+                <span>운영시간</span>
+                <span>10:00 - 18:00</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="chatbot__view chatbot__view--list" {% if view != 'list' %}hidden{% endif %}>
+        <img class="chatbot__deco-list" src="{{ url_for('static', filename='images/chatbot/symbol-black-bg.png') }}" alt="">
+
+        <h2 class="chatbot__title">대화</h2>
+
+        {# 대화 목록: JS가 아래 틀을 복사해서 채움 #}
+        <ul class="chat-list" aria-label="대화 목록"></ul>
+        <template id="chat-item-tpl">
+            <li>
+                <button type="button" class="chat-item">
+                    <span class="chat-item__symbol">
+                        <img src="{{ url_for('static', filename='images/chatbot/symbol-black.png') }}" alt="">
+                    </span>
+                    <span class="chat-item__body">
+                        <span class="chat-item__top">
+                            <span class="chat-item__name">리움미술관</span>
+                            <span class="chat-item__time"></span>
+                        </span>
+                        <span class="chat-item__text"></span>
+                    </span>
+                </button>
+            </li>
+        </template>
+
+        <div class="chatbot__empty">
+            <img src="{{ url_for('static', filename='images/chatbot/icon-bubble.svg') }}" alt="">
+            <p>대화를 시작해 보세요</p>
+        </div>
+
+        <div class="chatbot__start">
+            <button type="button" class="chatbot__ask chatbot__ask--200">문의하기</button>
+        </div>
+    </section>
+
+    {# 16 대화 #}
+    <section class="chatbot__view chatbot__view--chat" {% if view != 'chat' %}hidden{% endif %}>
+        <img class="chatbot__deco-list" src="{{ url_for('static', filename='images/chatbot/symbol-black-bg.png') }}" alt="">
+
+        <div class="chat__head">
+            <button type="button" class="chat__back" aria-label="뒤로">
+                <img src="{{ url_for('static', filename='images/chatbot/icon-back.svg') }}" alt="">
+            </button>
+            <span class="chat__symbol">
+                <img src="{{ url_for('static', filename='images/chatbot/symbol-black.png') }}" alt="">
+            </span>
+            <div class="chat__info">
+                <p class="chat__name">리움미술관</p>
+                <p class="chat__hours">운영시간 | 10:00 - 18:00</p>
+            </div>
+        </div>
+
+        {% if pinned_notice %}
+        <p class="chat__notice">
+            <img src="{{ url_for('static', filename='images/chatbot/icon-notice.svg') }}" alt="">
+            {{ pinned_notice.title }}
+        </p>
+        {% endif %}
+
+        <div class="chat__log" role="log" aria-live="polite">
+            <p class="bubble bubble--bot">안녕하세요. 리움미술관입니다.<br>무엇을 도와드릴까요?</p>
+
+            <div class="quick">
+                <button type="button" class="quick__btn">운영시간</button>
+                <button type="button" class="quick__btn">입장료</button>
+                <button type="button" class="quick__btn">주차</button>
+                <button type="button" class="quick__btn">위치</button>
+                <button type="button" class="quick__btn">예약방법</button>
+                <button type="button" class="quick__btn">물품보관</button>
+            </div>
+
+        </div>
+
+        <form class="chat__form" action="#" method="post">
+            <textarea class="chat__input" name="message" placeholder="궁금한 내용을 입력해 주세요." aria-label="메시지 입력"></textarea>
+            <button type="submit" class="chat__send" aria-label="보내기">
+                <img src="{{ url_for('static', filename='images/chatbot/icon-chat-send.svg') }}" alt="">
+            </button>
+        </form>
+    </section>
+
+    {# 탭바 (공통) #}
+    <nav class="chatbot__tab" {% if view == 'chat' %}hidden{% endif %}>
+        <button type="button" class="chatbot__tab-btn {{ 'is-active' if view == 'home' }}" data-view="home">
+            <img src="{{ url_for('static', filename='images/chatbot/' ~ ('icon-home.svg' if view == 'home' else 'icon-home-off.svg')) }}"
+                 data-on="{{ url_for('static', filename='images/chatbot/icon-home.svg') }}"
+                 data-off="{{ url_for('static', filename='images/chatbot/icon-home-off.svg') }}" alt="">
+            홈
+        </button>
+        <button type="button" class="chatbot__tab-btn {{ 'is-active' if view == 'list' }}" data-view="list">
+            <img src="{{ url_for('static', filename='images/chatbot/' ~ ('icon-chat-on.svg' if view == 'list' else 'icon-chat.svg')) }}"
+                 data-on="{{ url_for('static', filename='images/chatbot/icon-chat-on.svg') }}"
+                 data-off="{{ url_for('static', filename='images/chatbot/icon-chat.svg') }}" alt="">
+            대화
+        </button>
+    </nav>
+</aside>

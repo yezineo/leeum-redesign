@@ -1,0 +1,71 @@
+{% extends "base_account.html" %}
+
+{% block title %}회원가입 | 리움미술관{% endblock %}
+
+{% block content %}
+{% set f = form or {} %}
+<div class="account__box">
+    <form class="account__form" action="{{ url_for('join', next=next_page) }}" method="post" novalidate data-validate>
+        <h2 class="account__title">회원가입</h2>
+
+        <div class="account__fields">
+            <div class="field">
+                <input class="input" type="text" name="name" placeholder="이름" aria-label="이름" required
+                       value="{{ f.get('name', '') }}">
+            </div>
+            <div class="field">
+                <input class="input{% if email_error %} is-error{% endif %}" type="email" name="email" placeholder="이메일" aria-label="이메일" required
+                       value="{{ f.get('email', '') }}"
+                       {% if email_error %}aria-invalid="true" aria-describedby="email-error"{% endif %}>
+                {% if email_error %}
+                <p class="field__error" id="email-error">{{ email_error }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input class="input" type="password" name="password" placeholder="비밀번호" aria-label="비밀번호" required>
+            </div>
+            <div class="field">
+                <input class="input" type="password" name="password_check" placeholder="비밀번호 확인" aria-label="비밀번호 확인" required>
+            </div>
+
+            <div class="agree">
+                <label class="check">
+                    <input type="checkbox" name="agree_all">
+                    <span class="agree__strong">전체 동의</span>
+                    <span class="agree__weak">(선택사항 포함)</span>
+                </label>
+
+                <hr class="agree__line">
+
+                <div class="agree__list">
+                    <label class="check">
+                        <input type="checkbox" name="agree_terms" required>
+                        <span class="agree__strong">[이용약관]</span>
+                        <span>동의 (필수)</span>
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" name="agree_privacy" required>
+                        <span class="agree__strong">[개인정보 수집·이용]</span>
+                        <span>동의 (필수)</span>
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" name="agree_marketing">
+                        <span>마케팅 정보 수신 동의 (선택)</span>
+                    </label>
+                </div>
+
+                <p class="field__error agree__error" role="alert" hidden>필수 약관에 동의해 주세요.</p>
+            </div>
+
+            <button type="submit" class="account__submit">가입하기</button>
+        </div>
+    </form>
+
+    <hr class="account__line">
+
+    <div class="account__join">
+        <p>이미 계정이 있으신가요?</p>
+        <a href="{{ url_for('login', next=next_page) }}" class="account__sub-btn">로그인</a>
+    </div>
+</div>
+{% endblock %}

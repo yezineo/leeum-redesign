@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}전시 | 리움미술관{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/exhibition.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page">
+    <h2 class="page__title">전시</h2>
+
+    <ul class="tabs">
+        {% for key, label in tabs %}
+        <li><a href="{{ url_for('exhibitions', tab=key) }}" class="tab {{ 'is-active' if key == tab }}"{% if key == tab %} aria-current="page"{% endif %}>{{ label }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% if exhibitions %}
+    <ul class="exhibit-list exhibit-list--page">
+        {% for ex in exhibitions %}
+        <li class="card">
+            <img class="card__img" src="{{ url_for('static', filename='images/exhibitions/' ~ ex.img) }}" alt="">
+            <div class="card__text">
+                <h3 class="card__title"><a class="card__link" href="{{ url_for('exhibition_detail', ex_id=ex.id) }}">{{ ex.title }}</a></h3>
+                <p class="card__desc">{{ ex.place }}<br>{{ ex.date }}</p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <nav class="pagination" aria-label="페이지">
+        <a href="#" class="pagination__btn" aria-label="처음"><img src="{{ url_for('static', filename='images/icons/icon-page-first.svg') }}" alt=""></a>
+        <a href="#" class="pagination__btn" aria-label="이전"><img src="{{ url_for('static', filename='images/icons/icon-page-prev.svg') }}" alt=""></a>
+        <a href="#" class="pagination__btn is-active" aria-current="page">1</a>
+        <a href="#" class="pagination__btn">2</a>
+        <a href="#" class="pagination__btn">3</a>
+        <a href="#" class="pagination__btn">4</a>
+        <a href="#" class="pagination__btn" aria-label="다음"><img src="{{ url_for('static', filename='images/icons/icon-page-next.svg') }}" alt=""></a>
+        <a href="#" class="pagination__btn" aria-label="마지막"><img src="{{ url_for('static', filename='images/icons/icon-page-last.svg') }}" alt=""></a>
+    </nav>
+    {% else %}
+    <p class="exhibit-empty">예정된 전시가 없습니다.</p>
+    {% endif %}
+</div>
+{% endblock %}

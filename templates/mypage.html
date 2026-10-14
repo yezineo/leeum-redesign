@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}마이페이지 | 리움미술관{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page">
+    <h2 class="page__title">마이페이지</h2>
+
+    <div class="mypage">
+        <div class="profile">
+            <p class="profile__name">{{ session.get('user_name') }} 님</p>
+            <p class="profile__email">{{ session.get('user_email') }}</p>
+        </div>
+
+        <div class="mypage__menu">
+            <a href="{{ url_for('reservations') }}" class="menu-card">
+                예약 내역
+                <img src="{{ url_for('static', filename='images/icons/icon-page-next.svg') }}" alt="">
+            </a>
+            <a href="#" class="menu-card">
+                비밀번호 변경
+                <img src="{{ url_for('static', filename='images/icons/icon-page-next.svg') }}" alt="">
+            </a>
+            <a href="#" class="mypage__leave">회원 탈퇴</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

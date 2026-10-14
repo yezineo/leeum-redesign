@@ -1,0 +1,48 @@
+{% extends "base_account.html" %}
+
+{% block title %}로그인 | 리움미술관{% endblock %}
+
+{% block content %}
+<div class="account__box">
+    {% if next_page and (next_page == 'reserve' or next_page.startswith('/reserve')) %}
+    <p class="account__notice">예약을 진행하려면 로그인이 필요합니다.</p>
+    {% endif %}
+
+    <form class="account__form" action="{{ url_for('login', next=next_page) }}" method="post" novalidate>
+        <h2 class="account__title">로그인</h2>
+
+        <div class="account__fields">
+            <div class="field">
+                <input class="input{% if login_error %} is-error{% endif %}" type="email" name="email"
+                       placeholder="이메일" aria-label="이메일" autocomplete="email"
+                       value="{{ email or '' }}"
+                       {% if login_error %}aria-invalid="true" aria-describedby="login-error"{% endif %}>
+            </div>
+            <div class="field">
+                <input class="input{% if login_error %} is-error{% endif %}" type="password" name="password"
+                       placeholder="비밀번호" aria-label="비밀번호" autocomplete="current-password"
+                       {% if login_error %}aria-invalid="true" aria-describedby="login-error" autofocus{% endif %}>
+                {% if login_error %}
+                <p class="field__error" id="login-error" role="alert">{{ login_error }}</p>
+                {% endif %}
+            </div>
+            <button type="submit" class="account__submit">로그인</button>
+        </div>
+
+        <div class="account__row">
+            <label class="check">
+                <input type="checkbox" name="save_email" {% if save_email %}checked{% endif %}>
+                <span>이메일 저장</span>
+            </label>
+            <a href="{{ url_for('find_password') }}" class="account__link">비밀번호 찾기</a>
+        </div>
+    </form>
+
+    <hr class="account__line">
+
+    <div class="account__join">
+        <p>아직 회원이 아니신가요?</p>
+        <a href="{{ url_for('join', next=next_page) }}" class="account__sub-btn">회원가입</a>
+    </div>
+</div>
+{% endblock %}

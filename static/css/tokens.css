@@ -1,0 +1,83 @@
+/* ===========================
+   리움 디자인 토큰
+   기준: leeum-design-tokens.md
+   =========================== */
+
+:root {
+  /* ---------- 색 ---------- */
+
+  /* 배경 */
+  --color-bg: #FFFFFF;          /* 기본 배경 · 카드 · 인풋 */
+  --color-bg-sub: #F9F9F9;      /* 보조 배경 */
+  --color-surface: #F2F2F2;     /* 회색 블록 · Secondary 버튼 · 안내 박스 */
+
+  /* 선 */
+  --color-line: #D2D2D2;        /* 카드 테두리 · 목록 구분선 · 인풋 */
+  --color-line-weak: #F2F2F2;   /* 섹션 구분선 · 표 안쪽 행 */
+
+  /* 글자 */
+  --color-text: #000000;
+  --color-text-sub: #57575C;    /* 보조 · 라벨 · placeholder */
+  --color-text-inverse: #FFFFFF;/* 어두운 배경 위 */
+  --color-text-weak: #D2D2D2;   /* Disabled 버튼 글씨 */
+  --color-text-error: #EF9770;  /* 오류 메시지 · Error 인풋 */
+
+  /* 버튼 */
+  --color-cta: #2B2B2B;         /* Primary 버튼 · 선택 상태 */
+
+  /* 포인트 */
+  --color-accent: #BCA384;        /* 탐색·안내 (위에 검정 글씨) */
+  --color-accent-strong: #A08862; /* 위에 흰 글씨가 올라갈 때 */
+  --color-accent-light: #F5E3CC;  /* 달력 예약 가능일 원형 */
+
+
+  /* ---------- 글자 ---------- */
+  --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  --letter-spacing: -0.02em;
+
+   /* PC */
+  --font-page-title: 600 36px/45px var(--font-family);
+  --font-h2:         600 28px/36px var(--font-family);
+  --font-h3:         600 24px/32px var(--font-family);
+  --font-h4:         600 20px/28px var(--font-family);
+  --font-h4-bold:    700 20px/28px var(--font-family);
+  --font-gnb:        600 19px/28px var(--font-family);
+  --font-h5:         600 18px/28px var(--font-family);
+  --font-body:       600 16px/28px var(--font-family);
+  --font-small:      600 14px/22px var(--font-family);
+  --font-caption:    600 12px/18px var(--font-family);
+  --font-micro:      600 10px/14px var(--font-family);
+
+  /* 모바일 */
+  --font-m-title:     600 30px/39px var(--font-family);
+  --font-m-body:      600 16px/24px var(--font-family);
+  --font-m-body-bold: 700 16px/24px var(--font-family);
+  --font-m-text:      600 14px/26px var(--font-family);
+  --font-m-small:     600 13px/19px var(--font-family);
+  --font-m-caption:   600 12px/16px var(--font-family);
+  --font-m-micro:     600 11px/16px var(--font-family);
+
+  /* ---------- 그라데이션 ---------- */
+  --gradient-chatbot: linear-gradient(180deg, var(--color-cta) 0%, var(--color-bg) 100%);
+
+    
+  /* ---------- 모서리 ---------- */
+  --radius-base: 4px;     /* 카드 · 인풋 · 확정 버튼 */
+  --radius-badge: 12px;
+  --radius-tab: 16px;
+  --radius-pill: 999px;   /* 탐색 · 보조 버튼 · 원형 */
+}
+
+/* ===== 768~1920: PC 폰트가 화면 폭에 따라 줄어들게 (1920 = 기존 값, 768 = 모바일 크기) ===== */
+@media (min-width: 768px) {
+  :root {
+    --font-page-title: 600 clamp(30px, 26px + 0.521vw, 36px)/1.25 var(--font-family);
+    --font-h2:         600 clamp(22px, 18px + 0.521vw, 28px)/1.2857 var(--font-family);
+    --font-h3:         600 clamp(18px, 14px + 0.521vw, 24px)/1.3333 var(--font-family);
+    --font-h4:         600 clamp(16px, 13.33px + 0.347vw, 20px)/1.4 var(--font-family);
+    --font-h4-bold:    700 clamp(16px, 13.33px + 0.347vw, 20px)/1.4 var(--font-family);
+    --font-h5:         600 clamp(16px, 14.67px + 0.174vw, 18px)/1.5556 var(--font-family);
+    --font-body:       600 clamp(14px, 12.67px + 0.174vw, 16px)/1.75 var(--font-family);
+    --font-small:      600 clamp(13px, 12.33px + 0.087vw, 14px)/1.5714 var(--font-family);
+  }
+}

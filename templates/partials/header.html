@@ -1,0 +1,79 @@
+{# ENG 아이콘: PC 헤더와 모바일 메뉴에서 같이 씀 #}
+{% set eng_icon %}
+<svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M12.6605 6.33001C12.6605 9.78696 9.79331 12.6603 6.33027 12.6603C2.87333 12.6603 4.27524e-07 9.7806 2.76416e-07 6.32366C1.25053e-07 2.86088 2.87333 -1.25597e-07 6.33027 -2.76705e-07C9.79331 -4.28079e-07 12.6605 2.86697 12.6605 6.33001ZM11.6056 6.33027C11.6056 3.40054 9.25947 1.06052 6.33027 1.06052C3.4069 1.06052 1.05496 3.39419 1.05496 6.32366C1.05496 9.24677 3.40716 11.5987 6.33027 11.6051C9.25974 11.6112 11.6056 9.25286 11.6056 6.32975M7.65215 8.99839C7.88173 9.166 7.90053 9.45145 7.65215 9.62516L6.24951 10.6182C6.02629 10.7797 5.75301 10.7175 5.75301 10.432L5.75301 9.81132C4.03394 9.50759 2.84235 8.11105 2.84235 6.34246C2.84235 5.5666 3.11535 4.79074 3.56233 4.25081C3.79192 3.95291 4.1147 3.8846 4.34428 4.10199C4.57996 4.31304 4.54288 4.59849 4.35673 4.84661C4.00905 5.29359 3.8229 5.7403 3.8229 6.34246C3.8229 7.57748 4.66072 8.60754 5.75328 8.88081L5.75328 8.18572C5.75328 7.90027 6.02602 7.83195 6.24951 7.99321L7.65215 8.99839ZM6.88264 2.22749L6.88264 2.87889C8.60172 3.18341 9.79331 4.57943 9.79331 6.35464C9.79331 7.12414 9.52639 7.90609 9.07968 8.44602C8.84401 8.73782 8.52095 8.80614 8.29137 8.5951C8.0557 8.37796 8.09913 8.09224 8.27893 7.85022C8.62661 7.4035 8.81911 6.95652 8.81911 6.35464C8.81911 5.11326 7.98103 4.08293 6.88264 3.80992L6.88264 4.46795C6.88264 4.75949 6.60964 4.82172 6.38615 4.66655L4.98986 3.65502C4.75393 3.49349 4.74148 3.20168 4.98986 3.02797L6.38615 2.03498C6.60964 1.87345 6.88264 1.93568 6.88264 2.22749Z" fill="currentColor"/>
+</svg>
+{% endset %}
+
+<header class="header {{ header_class|default('') }}">
+    {# 모바일 전용: 왼쪽 버튼 (로그인 상태에 따라 바뀜) #}
+    {% if session.get('user_id') %}
+        <a href="{{ url_for('mypage') }}" class="btn-chip header__m-btn">마이페이지</a>
+    {% else %}
+        <a href="{{ url_for('login') }}" class="btn-chip header__m-btn">로그인</a>
+    {% endif %}
+
+    <a href="/" class="header__logo" aria-label="리움미술관 홈">
+        {% include "partials/logo.svg" %}
+    </a>
+
+    <nav class="header__gnb">
+        <ul>
+            <li><a href="{{ url_for('exhibitions') }}">전시</a></li>
+            <li><a href="#">방문안내</a></li>
+            <li><a href="#">소장품</a></li>
+            <li><a href="#">배움·연구</a></li>
+            <li><a href="#">멤버십</a></li>
+        </ul>
+    </nav>
+
+    <div class="header__btns">
+        <button type="button" class="btn-chip">ENG {{ eng_icon }}</button>
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('mypage') }}" class="btn-chip">마이페이지</a>
+            <a href="{{ url_for('logout') }}" class="btn-chip">로그아웃</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="btn-chip">로그인</a>
+            <a href="{{ url_for('join') }}" class="btn-chip">회원가입</a>
+        {% endif %}
+    </div>
+
+    {# 모바일 전용: 햄버거 버튼 #}
+    <button type="button" class="header__menu-btn" aria-label="메뉴 열기"
+            aria-controls="m-menu" aria-expanded="false">
+        {% include "partials/icon-menu.svg" %}
+    </button>
+</header>
+
+{# 모바일 햄버거 메뉴 (17) #}
+<div class="m-menu" id="m-menu" role="dialog" aria-modal="true" aria-label="전체 메뉴" hidden>
+    <div class="m-menu__top">
+        <button type="button" class="btn-chip">ENG {{ eng_icon }}</button>
+        <a href="/" class="m-menu__logo" aria-label="리움미술관 홈">
+            {% include "partials/logo.svg" %}
+        </a>
+        <button type="button" class="m-menu__close" aria-label="메뉴 닫기">
+            {% include "partials/icon-menu-close.svg" %}
+        </button>
+    </div>
+
+    <nav class="m-menu__nav" aria-label="주 메뉴">
+        <ul>
+            <li><a href="{{ url_for('exhibitions') }}">전시</a></li>
+            <li><a href="#">방문안내</a></li>
+            <li><a href="#">소장품</a></li>
+            <li><a href="#">배움·연구</a></li>
+            <li><a href="#">멤버십</a></li>
+        </ul>
+    </nav>
+
+    <div class="m-menu__account">
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('mypage') }}" class="btn-chip">마이페이지</a>
+            <a href="{{ url_for('logout') }}" class="btn-chip">로그아웃</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="btn-chip">로그인</a>
+            <a href="{{ url_for('join') }}" class="btn-chip">회원가입</a>
+        {% endif %}
+    </div>
+</div>
