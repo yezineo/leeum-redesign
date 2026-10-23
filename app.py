@@ -453,6 +453,9 @@ def join():
     session['user_email'] = email
     return redirect(safe_next(next_page))
 
+@app.route('/coming-soon')
+def coming_soon():
+    return render_template('coming_soon.html')     # 이번 범위에서 뺀 메뉴
 
 @app.route('/logout')
 def logout():
@@ -490,4 +493,4 @@ def chatbot_chat_preview():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

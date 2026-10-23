@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}준비 중 | 리움미술관{% endblock %}
+
+{% block css %}
+<style>
+    .coming-soon { text-align: center; padding: 160px 20px; }
+    .coming-soon p { margin: 16px 0 32px; color: #777; line-height: 1.6; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page coming-soon">
+    <h2 class="page__title">준비 중인 페이지입니다</h2>
+    <p>이 프로젝트는 전시 · 예약 흐름을 중심으로 리디자인했습니다.<br>
+       이 메뉴는 이번 범위에 포함되지 않았습니다.</p>
+    <a href="{{ url_for('index') }}" class="btn-chip">메인으로</a>
+</div>
+{% endblock %}

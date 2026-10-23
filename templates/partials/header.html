@@ -20,15 +20,15 @@
     <nav class="header__gnb">
         <ul>
             <li><a href="{{ url_for('exhibitions') }}">전시</a></li>
-            <li><a href="#">방문안내</a></li>
-            <li><a href="#">소장품</a></li>
-            <li><a href="#">배움·연구</a></li>
-            <li><a href="#">멤버십</a></li>
+            <li><a href="{{ url_for('coming_soon') }}">방문안내</a></li>
+            <li><a href="{{ url_for('coming_soon') }}">소장품</a></li>
+            <li><a href="{{ url_for('coming_soon') }}">배움·연구</a></li>
+            <li><a href="{{ url_for('coming_soon') }}">멤버십</a></li>
         </ul>
     </nav>
 
     <div class="header__btns">
-        <button type="button" class="btn-chip">ENG {{ eng_icon }}</button>
+        <a href="{{ url_for('coming_soon') }}" class="btn-chip">ENG {{ eng_icon }}</a>
         {% if session.get('user_id') %}
             <a href="{{ url_for('mypage') }}" class="btn-chip">마이페이지</a>
             <a href="{{ url_for('logout') }}" class="btn-chip">로그아웃</a>
@@ -48,7 +48,7 @@
 {# 모바일 햄버거 메뉴 (17) #}
 <div class="m-menu" id="m-menu" role="dialog" aria-modal="true" aria-label="전체 메뉴" hidden>
     <div class="m-menu__top">
-        <button type="button" class="btn-chip">ENG {{ eng_icon }}</button>
+        <a href="{{ url_for('coming_soon') }}" class="btn-chip">ENG {{ eng_icon }}</a>
         <a href="/" class="m-menu__logo" aria-label="리움미술관 홈">
             {% include "partials/logo.svg" %}
         </a>
@@ -60,10 +60,10 @@
     <nav class="m-menu__nav" aria-label="주 메뉴">
         <ul>
             <li><a href="{{ url_for('exhibitions') }}">전시</a></li>
-            <li><a href="#">방문안내</a></li>
-            <li><a href="#">소장품</a></li>
-            <li><a href="#">배움·연구</a></li>
-            <li><a href="#">멤버십</a></li>
+            <li><a href="{{ url_for('coming_soon') }}">방문안내</a></li>
+            <li><a href="{{ url_for('coming_soon') }}">소장품</a></li>
+            <li><a href="{{ url_for('coming_soon') }}">배움·연구</a></li>
+            <li><a href="{{ url_for('coming_soon') }}">멤버십</a></li>
         </ul>
     </nav>
 

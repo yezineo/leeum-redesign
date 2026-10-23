@@ -21,11 +21,11 @@
                 예약 내역
                 <img src="{{ url_for('static', filename='images/icons/icon-page-next.svg') }}" alt="">
             </a>
-            <a href="#" class="menu-card">
+            <a href="{{ url_for('reset_password') }}" class="menu-card">
                 비밀번호 변경
                 <img src="{{ url_for('static', filename='images/icons/icon-page-next.svg') }}" alt="">
             </a>
-            <a href="#" class="mypage__leave">회원 탈퇴</a>
+            <a href="{{ url_for('coming_soon') }}" class="mypage__leave">회원 탈퇴</a>
         </div>
     </div>
 </div>
