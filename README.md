@@ -5,8 +5,8 @@
 
 ※ 본 프로젝트는 실제 서비스를 기반으로 제작한 UX/UI 리디자인 학습 목적의 비공식 컨셉 작업이며, 리움미술관과 무관합니다.
 
-**🔗 사이트**: https://leeum-redesign.onrender.com
-**▶ 시연 영상**: https://youtu.be/XMKZ3GK75qc
+- **🔗 사이트**: https://leeum-redesign.onrender.com
+- **▶ 시연 영상**: https://youtu.be/XMKZ3GK75qc
 
 > 무료 서버라 한동안 접속이 없으면 잠들어서, 첫 접속은 최대 1분 정도 걸릴 수 있습니다.
 
