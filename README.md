@@ -5,6 +5,11 @@
 
 ※ 본 프로젝트는 실제 서비스를 기반으로 제작한 UX/UI 리디자인 학습 목적의 비공식 컨셉 작업이며, 리움미술관과 무관합니다.
 
+**🔗 사이트**: https://leeum-redesign.onrender.com
+**▶ 시연 영상**: https://youtu.be/XMKZ3GK75qc
+
+> 무료 서버라 한동안 접속이 없으면 잠들어서, 첫 접속은 최대 1분 정도 걸릴 수 있습니다.
+
 <!-- 대표 화면 캡처를 넣을 자리: ![메인 화면](docs/main.png) -->
 
 ## 주요 기능
@@ -25,6 +30,7 @@
 - **Frontend**: HTML, CSS(디자인 토큰 기반), JavaScript (프레임워크 없이)
 - **AI**: OpenAI API (`gpt-4o-mini`) 챗봇, scikit-learn RandomForest 혼잡도 예측
 - **Design**: Figma
+- **배포**: Render (웹 서버), Aiven (MySQL)
 
 ## AI 기능 설명
 
@@ -63,9 +69,11 @@ DB, 테이블, 앱 전용 계정(`leeum`)이 만들어집니다. **비밀번호�
 `.env.example`을 복사해 `.env` 파일을 만들고 값을 채웁니다.
 ```
 DB_HOST=localhost
+DB_PORT=3306
 DB_USER=leeum
 DB_PASSWORD=schema.sql에서 정한 비밀번호
 DB_NAME=leeum
+DB_SSL_CA=비워두기 (외부 DB에 SSL로 연결할 때만 인증서 파일 이름)
 SECRET_KEY=아무 긴 문자열
 OPENAI_API_KEY=본인 OpenAI 키 (없으면 챗봇은 빠른 질문만 동작)
 ```
@@ -76,6 +84,7 @@ OPENAI_API_KEY=본인 OpenAI 키 (없으면 챗봇은 빠른 질문만 동작)
 app.py               라우트 (메인 · 전시 · 예약 · 로그인 · 챗봇)
 exhibitions_data.py  전시 데이터 (상세 템플릿 1개가 이 데이터로 화면 생성)
 db.py                MySQL 연결
+ca.pem               배포용 외부 DB(Aiven) SSL 인증서
 chat_ai.py           OpenAI 챗봇
 crowd.py             혼잡도 예측 불러오기
 ml/                  가상 데이터 생성 · 모델 학습 · 학습된 모델
